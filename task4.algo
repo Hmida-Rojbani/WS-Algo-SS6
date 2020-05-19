@@ -1,0 +1,10 @@
+FUNCTION node_counter_less(root : ^BST, k :INTEGER) : INTEGER
+BEGIN
+    IF (root = NULL) THEN
+        RETURN 0;
+    ELSE_IF (root^.VAL < k) THEN
+        RETURN 1 + nb_nodes(root^.LC) + node_counter_less(root^.RC,k);
+    ELSE
+        RETURN node_counter_less(root^.LC,k);
+    END_IF
+END

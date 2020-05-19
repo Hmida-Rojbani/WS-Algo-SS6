@@ -1,0 +1,27 @@
+BT :STRUCT
+        VAL : INTEGER; 
+        LC : ^BT; // a pointer to left child
+        RC : ^BT; // a pointer to right child
+    END_STRUCT
+
+
+FUNCTION identical(root1, root2 : ^BT) : BOOLEAN
+BEGIN
+    //Checks if both the trees are empty  
+    IF (root1 = NULL AND root2 = NULL) THEN
+            RETURN TRUE;
+    END_IF
+    //Trees are not identical if root of only one tree is null thus, return false  
+    IF ((root1 <> NULL AND root1 = NULL) OR (root1 = NULL AND root2 <> NULL)) THEN
+            RETURN FALSE;
+    END_IF
+    //If both trees are not empty, check whether the data of the nodes is equal  
+    //Repeat the steps for left subtree and right subtree  
+    IF (root1 <> NULL AND root2 <> NULL) THEN
+        IF (root1^.VAL = root2^.VAL) THEN
+            RETURN identical(root1^.LC,root2^.LC) AND identical(root1^.RC,root2^.RC);
+        ELSE
+            RETURN FALSE;
+        END_IF
+    END_IF
+END

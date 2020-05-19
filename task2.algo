@@ -1,0 +1,24 @@
+VAR
+    level : INTEGER := 0 ; // global variable
+
+//isSameLevel() will check whether all leaves of the binary tree is at the same level or not  
+FUNCTION isSameLevel(root : ^BT, currentLevel : INTEGER) : BOOLEAN
+BEGIN
+    //Check whether tree is empty  
+    IF (root = NULL) THEN
+        RETURN TRUE;
+    ELSE_IF (root^.LC = NULL AND root^.RC = NULL)
+            //If first leaf is encountered, set level to current level
+            IF (level = 0) THEN
+                level := currentLevel;
+                RETURN TRUE;
+            //Checks whether the other leaves are at the same level of that of first leaf  
+            ELSE
+                RETURN level = currentLevel
+            END_IF
+    ELSE
+    //Checks for leaf node in left and right subtree recursively.  
+        RETURN  (isSameLevel(root^.LC, currentLevel + 1) AND isSameLevel(root^.RC, currentLevel + 1)) ;  
+    END_IF
+
+END 

@@ -1,0 +1,38 @@
+FUNCTION find_max_width(root : ^BT) : INTEGER
+VAR
+    maxWidth : INTEGER :=0;
+    //Variable nodesInLevel keep tracks of number of nodes in each level  
+    nodesInLevel : INTEGER :=0;
+    //queue will be used to keep track of nodes of tree level-wise 
+    queue : QUEUE<^BT>;
+    current : ^BT;
+    
+BEGIN
+    //Check if root is null, then width will be 0  
+    IF (root = NULL) THEN
+        RETURN 0;
+    ELSE
+        //Add root node to queue as it represents the first level  
+        queue.enqueue(root);
+        WHILE (NOT queue.isEmpty()) DO
+            //Variable nodesInLevel will hold the size of queue i.e. number of elements in queue  
+            nodesInLevel = queue.size();  
+            //maxWidth will hold maximum width.   
+            //If nodesInLevel is greater than maxWidth then, maxWidth will hold the value of nodesInLevel  
+            maxWidth = max(maxWidth, nodesInLevel);  
+            //If variable nodesInLevel contains more than one node   
+            //then, for each node, we'll add left and right child of the node to the queue 
+            WHILE (nodesInLevel > 0) DO
+                current := queue.dequeue();
+                IF (current^.LC <>NULL) THEN
+                    queue.enqueue(current^.LC);
+                END_IF
+                IF (current^.RC <>NULL) THEN
+                    queue.enqueue(current^.RC);
+                END_IF
+                nodesInLevel := nodesInLevel -1;
+            END_WHILE
+        END_WHILE
+    END_IF
+    RETURN maxWidth;
+END

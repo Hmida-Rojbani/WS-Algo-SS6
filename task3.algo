@@ -1,0 +1,12 @@
+FUNCTION guided_walk(root :^BT, first:^L) : INTEGER
+BEGIN
+    IF (root <> NULL) THEN
+        IF (first = NULL) THEN
+            RETURN root^.VAL;
+        ELSE_IF (first^.VAL = 0) THEN
+            guided_walk(root^.LC,first^.next);
+        ELSE
+            guided_walk(root^.RC,first^.next);
+        END_IF
+    END_IF
+END
